@@ -32,33 +32,13 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
         // conceded by team 2. Similarly, goals scored by team 2 will be the
         // number of goals conceded by team 1.
         
-        // let mut team1_scores = TeamScores {goals_scored: team_1_score, goals_conceded: team_2_score};
+        let first_team = scores.entry(team_1_name).or_insert(TeamScores::default());
+        first_team.goals_scored += team_1_score;
+        first_team.goals_conceded += team_2_score;
 
-        // let mut team2_scores = TeamScores {goals_scored: team_2_score,goals_conceded: team_1_score};
-        // team2_scores.goals_scored += team_2_score;
-        // team2_scores.goals_conceded += team_2_score;
-
-        // scores.entry(team_1_name).or_insert(team1_scores);
-        // scores.entry(team_2_name).or_insert(team2_scores);
-
-        // for team_1_score in scores {
-        //     let count = scores.entry(team_1_name).or_insert(team_1_score)
-        // }
-
-        // Insert the default with zeros if a team doesn't exist yet.
-        let team_1 = scores
-            .entry(team_1_name)
-            .or_insert_with(TeamScores::default);
-        // Update the values.
-        team_1.goals_scored += team_1_score;
-        team_1.goals_conceded += team_2_score;
-
-        // Similarly for the second team.
-        let team_2 = scores
-            .entry(team_2_name)
-            .or_insert_with(TeamScores::default);
-        team_2.goals_scored += team_2_score;
-        team_2.goals_conceded += team_1_score;
+        let second_team: &mut TeamScores = scores.entry(team_2_name).or_insert(TeamScores::default());
+        second_team.goals_scored += team_2_score;
+        second_team.goals_conceded += team_1_score;
     }
 
     scores

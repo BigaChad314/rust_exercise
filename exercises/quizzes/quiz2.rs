@@ -28,7 +28,25 @@ mod my_module {
 
     // TODO: Complete the function as described above.
     // pub fn transformer(input: ???) -> ??? { ??? }
-    pub fn transformer(input:)
+    pub fn transformer(input: Vec<(String, Command)>) ->  Vec<String> {
+        let mut result = Vec::new();
+        
+        for (input, command) in commands {
+            let result = match command {
+                Command::Uppercase => input.to_uppercase(),
+                Command::Trim => input.trim().to_string(),
+                Command::Append(times) => {
+                    let mut modified_string = input.clone();
+                    for _ in 0..times {
+                        modified_string.push_str("bar");
+                    }
+                    modified_string
+                }
+            };
+            result.push(result);
+        }
+    result
+}
 }
 
 fn main() {
