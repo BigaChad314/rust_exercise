@@ -27,7 +27,6 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
         let team_1_score: u8 = split_iterator.next().unwrap().parse().unwrap();
         let team_2_score: u8 = split_iterator.next().unwrap().parse().unwrap();
 
-<<<<<<< HEAD:solutions/11_hashmaps/hashmaps3.rs
         // Insert the default with zeros if a team doesn't exist yet.
         let team_1 = scores
             .entry(team_1_name)
@@ -42,20 +41,6 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
             .or_insert_with(TeamScores::default);
         team_2.goals_scored += team_2_score;
         team_2.goals_conceded += team_1_score;
-=======
-        // TODO: Populate the scores table with the extracted details.
-        // Keep in mind that goals scored by team 1 will be the number of goals
-        // conceded by team 2. Similarly, goals scored by team 2 will be the
-        // number of goals conceded by team 1.
-        
-        let first_team = scores.entry(team_1_name).or_insert(TeamScores::default());
-        first_team.goals_scored += team_1_score;
-        first_team.goals_conceded += team_2_score;
-
-        let second_team: &mut TeamScores = scores.entry(team_2_name).or_insert(TeamScores::default());
-        second_team.goals_scored += team_2_score;
-        second_team.goals_conceded += team_1_score;
->>>>>>> d963773 (rustlings):rustlings/exercises/11_hashmaps/hashmaps3.rs
     }
 
     scores
@@ -63,27 +48,6 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
 
 fn main() {
     // You can optionally experiment here.
-    const RESULTS: &str = "England,France,4,2
-                            France,Italy,3,1
-                            Poland,Spain,2,0
-                            Germany,England,2,1
-                            England,Spain,1,0";
-
-    fn build_scores() {
-        let scores = build_scores_table(RESULTS);
-
-        assert!(["England", "France", "Germany", "Italy", "Poland", "Spain"]
-            .into_iter()
-            .all(|team_name| scores.contains_key(team_name)));
-    }
-
-    fn validate_team_score_1() {
-        let scores = build_scores_table(RESULTS);
-        let team = scores.get("England").unwrap();
-        assert_eq!(team.goals_conceded, 4);
-    }
-
-    validate_team_score_1();
 }
 
 #[cfg(test)]
